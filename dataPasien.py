@@ -3,10 +3,12 @@
 # Kelas : 10 Komputer 1
 # Program Data Pasien 
 
+
 from os import system
 from time import sleep
 # Jika belum terinstall --> $ pip3 install tabulate
 from tabulate import tabulate
+from datetime import datetime
 
 # Kumpulan kode warna
 # Hiraukan saja
@@ -18,14 +20,33 @@ hijau = "\033[92m"
 
 
 dataPasien = {
-    "Buaya":{
-        "Gender":"Laki-laki",
-        "Penyakit":"Sakit hati",
+    "20201021-A001":{
+        "Nama":"orang",
+        "Gender":"cowo",
+        "Penyakit":"Pneumonia",
         "Ruangan":"VIP",
-        "ID":"001",
         "Lama menginap":"5"
     }
 }
+
+# Membuat id untuk pasien baru
+def idPasien():
+    # Memberikan tanggal, bulan, tahun hari ini
+    idHariIni = datetime.now()
+    idTgl = idHariIni.day
+    idBulan = idHariIni.month
+    idTahun = idHariIni.year
+    kodeId = len(dataPasien) + 1
+
+    idBaru  = ("%4d%2d%02d-A%03d" % (idTahun, idBulan, idTgl, kodeId))
+    # Akan memberikan value baru yaitu idBaru saja
+    return idBaru
+
+
+def verifikasiUser(char):
+    verifikasiUser = input(f"\nApakah anda yakin ingin {char} data Pasien ini? [{hijau}Y{normal}/{merah}n{normal}]: ").upper()
+    return verifikasiUser
+
 
 # Menampilkan tampilan menu
 def displayMenu():
@@ -43,24 +64,31 @@ def displayMenu():
     """)
 
 
+def dataKosong(char):
+    # Diberi variabel kosong supaya bisa menampung data yg diberikan
+    tableData = []
+    if len(char) == 0:
+        tableData.append(["Maaf Tetapi data saat ini masih kosong."])
+        print(tabulate(tableData))
+    else:
+        pass
+
 # Menampilkan data pasien
 def tampilkanData():
     system("clear")
-    # Variabel kosong untuk dimasukkan nilainya pada saat looping
+    # Jika data pasien kosong.
     tableData = []
-    # Jika dataPasien kosong maka akan menampilkan pesan berikut
     if len(dataPasien) == 0:
-        tableData.append(["Maaf tetapi data pasien saat ini sedang kosong."])
-        print(tabulate(tableData)) 
+        dataKosong(dataPasien)
     # Jika ada sesuatu di dalam data pasien
     else:
         # Looping dilakukan untuk mencari semua data pasien
         for i in dataPasien:
-            nama = i
+            nama = dataPasien[i]["Nama"]
             gender = dataPasien[i]["Gender"]
             penyakit = dataPasien[i]["Penyakit"]
             ruangan = dataPasien[i]["Ruangan"]
-            id = dataPasien[i]["ID"]
+            id = i
             lamaMenginap = dataPasien[i]["Lama menginap"]
             # Gunakan .append() untuk memasukkan variablenya ke tabel
             tableData.append([nama, gender, penyakit, ruangan, id, lamaMenginap + " Hari"])
@@ -83,43 +111,94 @@ def loading(char, jumlahUlang):
         system("clear")
 
 
-
 # Menambahkan data ke ke dalam dataPasien
 def tambahkanData():
     system("clear")
-    inputTambahNamaData = input("Tambahkan Nama: ")
-    inputTambahGenderData = input("Tambahkan Gender: ")
-    inputTambahPenyakitData = input("Tambahkan Penyakit: ")
-    inputTambahRuanganData = input("Tambahkan tipe Ruangan: ")
-    inputTambahIdData = input("Tambahkan ID: ")
-    inputTambahLamaMenginapData = input("Tambahkan lama Pasien menginap: ")
-    # Membuat loop infinite untuk supaya input verifikasiUser dapat berjalan terus jika yang ditekan selain Y/n
-    while True:
-        verifikasiUser = input(f"Apakah anda yakin ingin menyimpan data ini? [{hijau}Y{normal}/{merah}n{normal}]: ").upper()
-        if verifikasiUser == "Y":
-            # memakai animasi loading yang diuolang sebanyak 4 kali
-            loading("Menyimpan data", 4)
-            # Ini akan memasukkan data yang baru saja ditambahkan ke dalam dataPasien
-            dataPasien[inputTambahNamaData] = {
-                "Gender":inputTambahGenderData,
-                "Penyakit":inputTambahPenyakitData,
-                "Ruangan":inputTambahRuanganData,
-                "ID":inputTambahIdData,
-                "Lama menginap":inputTambahLamaMenginapData
-            } 
-            system("clear")
-            tableData= []
-            # Menampilkan data yang tadi ke dalam bentuk tabel
-            tableData.append([inputTambahNamaData, inputTambahGenderData, inputTambahNamaData, inputTambahRuanganData, inputTambahIdData, inputTambahLamaMenginapData + " Hari"])
-            print(tabulate(tableData, headers=["Nama", "Gender", "Penyakit", "Ruangan", "ID", "Lama menginap"], tablefmt="presto"))
-            print("\nData berhasil disimpan.")
+    nama = input("Tambahkan Nama: ")
+    for i in dataPasien:
+        if nama == dataPasien[i]["Nama"]:
+            print("Maaf tetapi terdapat nama Pasien yang sama.")
             break
-        elif verifikasiUser == "N":
-            break
-        else:
-            print(f"Silahkan Pilih {hijau}Y{normal} atau {merah}n{normal}.")
+    else:
+        gender = input("Tambahkan Gender: ")
+        penyakit = input("Tambahkan Penyakit: ")
+        ruangan = input("Tambahkan tipe Ruangan: ")
+        id = idPasien()
+        lamaMenginap = input("Tambahkan lama Pasien menginap: ")
+        # Membuat loop infinite untuk supaya input verifikasiUser dapat berjalan terus jika yang ditekan selain Y/n
+        while True:
+            userInput = verifikasiUser("Menyimpan")
+            if userInput == "Y":
+                # memakai animasi loading yang diuolang sebanyak 4 kali
+                loading("Menyimpan data", 4)
+                # Ini akan memasukkan data yang baru saja ditambahkan ke dalam dataPasien
+                dataPasien[id] = {
+                    "Nama":nama,
+                    "Gender":gender,
+                    "Penyakit":penyakit,
+                    "Ruangan":ruangan,
+                    "Lama menginap":lamaMenginap
+                } 
+                system("clear")
+                tableData= []
+                # Menampilkan data yang tadi ke dalam bentuk tabel
+                tableData.append([nama, gender, penyakit, ruangan, id, lamaMenginap + " Hari"])
+                print(tabulate(tableData, headers=["Nama", "Gender", "Penyakit", "Ruangan", "ID", "Lama menginap"], tablefmt="presto"))
+                print("\nData berhasil disimpan.")
+                break
+            elif userInput == "N":
+                break
+            else:
+                print(f"Silahkan Pilih {hijau}Y{normal} atau {merah}n{normal}.")
+            
     input("\nTekan ENTER untuk kembali.")
     
+
+def hapusData():
+    system("clear")
+    # Jika data pasien kosong
+    if len(dataPasien) == 0:
+        dataKosong(dataPasien)
+    # Jika terdapat data di dalam dataPasien
+    else:
+        inputDelData = input("Silahkan masukkan nama pasien yang ingin dihapus: ")
+        # Looping untuk mencari semua data pasien
+        for i in dataPasien:
+            # Jika nama yang dicari ada di dalam dataPasien
+            if inputDelData == dataPasien[i]["Nama"]:
+                tableData = []
+                nama = dataPasien[i]["Nama"]
+                gender = dataPasien[i]["Gender"]
+                penyakit = dataPasien[i]["Penyakit"]
+                ruangan = dataPasien[i]["Ruangan"]
+                id = i
+                lamaMenginap = dataPasien[i]["Lama menginap"]
+
+                tableData.append([nama, gender, penyakit, ruangan, id, lamaMenginap + " Hari"])
+
+                system("clear")
+                # Menampilkan data yang ingin dihapus ke dalam bentuk tabel
+                print(tabulate(tableData, headers=["Nama", "Gender", "Penyakit", "Ruangan", "ID", "Lama menginap"], tablefmt="presto"))
+
+                # loop infinite untuk verifikasi user
+                while True:
+                    inputUser = verifikasiUser("Menghapus")
+
+                    if inputUser == "Y":
+                        loading("Menghapus data", 3)
+                        dataPasien.pop(i)
+                        print("Data telah dihapus.")
+                        break
+                    elif inputUser == "N":
+                        break
+                    else:
+                        print(f"Silahkan Pilih {hijau}Y{normal} atau {merah}n{normal}.")
+                
+                break
+            # Jika nama pasien yang dicari tidak ditemukan  dalam looping
+            else:
+                print("Maaf tetapi pasien tersebut tidak ada di dalam data.")
+    input("Tekan ENTER untuk kembali.")
 
 
 # Keseluruhan proses dari progra,
@@ -137,7 +216,7 @@ def proses():
         elif inputPilihanUser == "2":
             tambahkanData()
         elif inputPilihanUser == "3":
-            pass
+            hapusData()
         elif inputPilihanUser == "4":
             pass
         elif inputPilihanUser == "5":
