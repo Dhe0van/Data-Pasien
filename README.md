@@ -1,3 +1,3 @@
 Tempat backup dan juga pengawas untuk pembuatan project akhir dataPasien
-\nNama : Dheovan Winata Alvian
-\nKelas : 10 Komputer 1
+Nama : Dheovan Winata Alvian
+Kelas : 10 Komputer 1
