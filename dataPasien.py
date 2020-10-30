@@ -6,27 +6,41 @@
 
 from os import system
 from time import sleep
-# Jika belum terinstall --> $ pip3 install tabulate
 from tabulate import tabulate
+# Jika belum terinstall --> $ pip3 install tabulate
 from datetime import datetime
+import platform
 
 ####################################################
 
 # Fungsi ekstra
 
+
+def clear():
+    OS = platform.system().lower()
+
+    if OS == "linux":
+        linux = system("clear")
+        return linux
+    else:
+        windows = system("cls")
+        return windows
+
+
+
 # Fungsi yang memuat animasi loading (Biar Keren)
 def loading(char, jumlahUlang):
-    system("clear")
+    clear()
     for i in range(jumlahUlang):
         print(char + " -")
         sleep(0.2)
-        system("clear")
+        clear()
         print(char + " |")
         sleep(0.2)
-        system("clear")
+        clear()
         print(char + " /")
         sleep(0.2)
-        system("clear")
+        clear()
 
 # Jika data pasien kosong
 def dataKosong(char):
@@ -48,7 +62,7 @@ def verifikasiUser(char):
 
 # Ini untuk menampilkan Tabel
 def tampilkanTable(char):
-    system("clear")
+    clear()
     tableData = []
     nama = dataPasien[char]["Nama"]
     gender = dataPasien[char]["Gender"]
@@ -60,7 +74,7 @@ def tampilkanTable(char):
     # Memasukkan data-data di atas ke dalam variabel tableData
     tableData.append([nama, gender, penyakit, ruangan, id, lamaMenginap + " Hari"])
 
-    system("clear")
+    clear()
 
     print("Data telah ditemukan.\n")
     # Menampilkan Tabel nya
@@ -173,7 +187,7 @@ def displayMenu():
 
 # Menampilkan data pasien
 def tampilkanData():
-    system("clear")
+    clear()
     # Jika data pasien kosong.
     tableData = []
     if len(dataPasien) == 0:
@@ -198,7 +212,7 @@ def tampilkanData():
 
 # Menambahkan data ke ke dalam dataPasien
 def tambahkanData():
-    system("clear")
+    clear()
     nama = input("Tambahkan Nama: ")
     # Looping untuk mengecek semua jumlah data di pasien
     for i in dataPasien:
@@ -228,7 +242,7 @@ def tambahkanData():
                     "Ruangan":ruangan,
                     "Lama menginap":lamaMenginap
                 } 
-                system("clear")
+                clear()
                 tableData= []
                 # Menampilkan data yang tadi ke dalam bentuk tabel
                 tableData.append([nama, gender, penyakit, ruangan, id, lamaMenginap + " Hari"])
@@ -248,7 +262,7 @@ def hapusData():
 
     # Coba eksekusi terlebih dahulu.
     try:
-        system("clear")
+        clear()
         # Jika data pasien kosong
         if len(dataPasien) == 0:
             dataKosong(dataPasien)
@@ -280,7 +294,7 @@ def hapusData():
 
 # Fungsi untuk mencari Pasien dalam dataPasien
 def cariData():
-    system("clear")
+    clear()
     # Coba eksekusi dulu.
     try:
         # Jika tidak ada apa-apa di dalam dataPasien.
@@ -307,7 +321,7 @@ def cariData():
 
 # Membuat template agar dapat dipakai berulang-ulang di pengkondisian perbaruiData
 def templatePerbarui(idPasien, char, dataPasienSebelumnya):
-    system("clear")
+    clear()
 
     # Mengubah data
     inputUbah = input(f"Silahkan ubah {char} pasien sesuai yang anda inginkan: ")
@@ -356,7 +370,7 @@ def templatePerbarui(idPasien, char, dataPasienSebelumnya):
 
 # Fungsi untuk memperbarui data Pasien
 def perbaruiData():
-    system("clear")
+    clear()
 
     # Jika tidak ada apa-apa di dalam dataPasien
     if len(dataPasien) == 0:
@@ -409,7 +423,7 @@ def perbaruiData():
 # Keseluruhan proses dari progra,
 def proses():
     while True:
-        system("clear")
+        clear()
         displayMenu()
         inputPilihanUser = input("Masukkan pilihan anda: ")
         inputPilihanUser = inputPilihanUser.upper()
@@ -430,7 +444,7 @@ def proses():
             pass
         # Jika user menginput selain 1-5, Q, ?
         else:
-            system("clear")
+            clear()
             print("Hanya masukkan kata kunci sesuai di tampilan menu.")
             input("\nTekan ENTER untuk kembali.")
 
