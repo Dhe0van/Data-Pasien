@@ -62,6 +62,7 @@ def tampilkanTable(char):
 
     system("clear")
 
+    print("Data telah ditemukan.\n")
     # Menampilkan Tabel nya
     hasil = print(tabulate(tableData, headers=["Nama", "Gender", "Penyakit", "Ruangan", "ID", "Lama menginap"], tablefmt="presto"))
     # DISCLAIMER : tidak tahu kenapa kalau dimasukkan dalam variabel berhasil sedangkan tanpa variabel tidak.
@@ -72,11 +73,13 @@ def mengambilIdDariNama(char):
     # Looping seluruh dataPasien.
     for i in dataPasien:
         if char == dataPasien[i]["Nama"]:
+            loading("Mencari", 3)
             # Akan menampilkan tabel Pasien jika ada.
             tampilkanTable(i)
             return i
         # Tetapi jika tidak ada akan muncul ini.
         else:
+            loading("Mencari", 2)
             # Jika huruf paling depan dari inputUser sama pada saat looping dataPasien.
             if char[0] == dataPasien[i]["Nama"][0]:
                 print(f"Nama Pasien {char} tidak ditemukan, Tetapi ditemukan yang mendekati:") 
@@ -251,7 +254,7 @@ def hapusData():
             dataKosong(dataPasien)
         # Jika terdapat data di dalam dataPasien
         else:
-            inputDelData = input("Silahkan masukkan nama pasien yang ingin dihapus: ")
+            inputDelData = input("Silahkan masukkan nama pasien yang ingin dihapus\n(Jika tidak menampilkan apa-apa maka itu berarti pencarian tidak ada yang mendekati):  ")
             idBaru = mengambilIdDariNama(inputDelData)
 
             if inputDelData == "":
@@ -287,9 +290,6 @@ def cariData():
         else:
             inputCariData = input("Silahkan masukkan nama Pasien yang ingin dicari.\n(Jika pencarian tidak menampilkan apa-apa berarti tidak ada yang mendekati): ")
             
-            # Animasi Loading (Biar keren)
-            loading("Mencari", 3)
-
             # Yang disini mencari ID dan mencocokkan nya dengan data dari Pasien lain ada di Line 70-92.
             idPasien = mengambilIdDariNama(inputCariData)
 
@@ -300,6 +300,111 @@ def cariData():
 
     finally:
         input("\nTekan ENTER untuk kembali.") 
+
+
+# Bagian cakupan dari perbarui data    
+
+
+# Membuat template agar dapat dipakai berulang-ulang di pengkondisian perbaruiData
+def templatePerbarui(idPasien, char, dataPasienSebelumnya):
+    system("clear")
+
+    # Mengubah data
+    inputUbah = input(f"Silahkan ubah {char} pasien sesuai yang anda inginkan: ")
+
+    # Jika data yang baru saja dimasukkan sama dengan data yang sebelumnya
+    if inputUbah == dataPasienSebelumnya:
+        print(f"Maaf tetapi {char} Pasien tidak boleh sama dengan sebelumnya.")
+
+    # Jika data yang baru saja dimasukkan berbeda dengan data yang sebelumnya
+    else:
+
+        # Infinite loop agar verifikasi user dapat dilakukan berulang kali jika ada kesalahan dalam mengetik    
+        while True:
+            # Jika user memeberi input kosong.
+            if inputUbah == "":
+                print(f"{char} Pasien tidak boleh kosong!!!")
+                inputUbah = input(f"Silahkan ubah {char} pasien sesuai yang anda inginkan: ")
+            # Jika user memberikan input selain input Kosong
+            else:
+                # Meminta verifikasi/persetujuan dari User
+                persetujuan = verifikasiUser("Mengubah Nama")
+
+                # Jika User Setuju
+                if persetujuan == "Y":
+                    # Animasi Loading
+                    loading("Mengubah", 3)
+
+                    # Mengubah data sebelumnya menjadi data baru
+                    dataPasien[idPasien][f"{char}"] = inputUbah
+
+                    print(f"{char} Pasien telah diubah.")
+                    # Keluar dari loop
+                    break
+
+                # Jika user tidak setuju
+                elif persetujuan == "N":
+                    print("Data batal diubah")
+                    # Keluar dari loop
+                    break
+                
+                # Jika user memberikan input selain [Y/n]
+                else:
+                    print(f"Silahkan Pilih {hijau}Y{normal} atau {merah}n{normal}.")
+                    # Akan kembali lagi ke proses while-loop karena infinite sampai user memberikan input [Y/n]
+
+
+# Fungsi untuk memperbarui data Pasien
+def perbaruiData():
+    system("clear")
+
+    # Jika tidak ada apa-apa di dalam dataPasien
+    if len(dataPasien) == 0:
+        dataKosong(dataPasien)
+
+    # Jika ada sesuatu    
+    else:
+        inputPerbaruiData = input("Masukkan nama Pasien yang ingin anda ubah datanya: ")
+        
+        # Mengambil id pasien. 
+        idPasien = mengambilIdDariNama(inputPerbaruiData)
+
+        # Jika idPasien meng-return sesuatu maka akan masuk ke kondisi ini.
+        if idPasien:
+            # Opsinya
+            print("""\n Opsi
+            [1] Nama
+            [2] Gender
+            [3] Penyakit
+            [4] Ruangan
+            [5] Lama menginap
+            """)
+
+            inputPilihanUser = input("Silahkan pilih opsi di atas yang ingin anda ubah dari Pasien ini: ")
+
+            # Kondisi untuk Nama
+            if inputPilihanUser == "1":
+                templatePerbarui(idPasien, "Nama", inputPerbaruiData)
+
+            # Kondisi untuk Gender
+            elif inputPilihanUser == "2":
+                templatePerbarui(idPasien, "Gender", dataPasien[idPasien]["Gender"])
+
+            # Kondisi untuk Penyakit
+            elif inputPilihanUser == "3":
+                templatePerbarui(idPasien, "Penyakit", dataPasien[idPasien]["Penyakit"])
+
+            # Kondisi untuk Ruangan
+            elif inputPilihanUser == "4":
+                templatePerbarui(idPasien, "Ruangan", dataPasien[idPasien]["Ruangan"])
+
+            # Kondisi untuk Lama menginap
+            elif inputPilihanUser == "5":
+                templatePerbarui(idPasien, "Lama menginap", dataPasien[idPasien]["Lama menginap"])
+            
+    
+    input("\nTekan ENTER untuk kembali.") 
+
 
 # Keseluruhan proses dari progra,
 def proses():
@@ -320,7 +425,7 @@ def proses():
         elif inputPilihanUser == "4":
             cariData()
         elif inputPilihanUser == "5":
-            pass
+            perbaruiData()
         elif inputPilihanUser == "?":
             pass
         # Jika user menginput selain 1-5, Q, ?
