@@ -534,10 +534,10 @@ try:
                         break
 
                     else:
+                        clear()
                         print("Hanya masukkan angka 1-5 atau huruf Q ")
-
-                        inputPilihanUser = input("Silahkan pilih opsi di atas yang ingin anda ubah dari Pasien ini: ")
-
+                        input("\nTekan ENTER untuk kembali.")
+     
         input("\nTekan ENTER untuk kembali.")
 
 
