@@ -1,10 +1,11 @@
-# tugas akhir 
-# Nama  : Dheovan Winata Alvian 
+# tugas akhir
+# Nama  : Dheovan Winata Alvian
 # Kelas : 10 Komputer 1
-# Program Data Pasien 
+# Program Data Pasien
 
 import os
 import platform
+from getpass import getpass
 
 
 # Fungsi ini untuk mengetahui OS apa yang digunakan oleh user? hanya mendukung windows dan linux
@@ -21,12 +22,21 @@ def platform_OS():
 
 # variabel penting untuk program
 
-putih = "\033[97m"
-biruBG = "\033[44m"
-merah = "\033[91m"
-normal = "\033[0m"
-hijau = "\033[92m"
-lumut = "\033[42m"
+os.system("")
+
+# Kumpulan Warna (Hasil copas internet)
+class style():
+    BLACK = '\033[30m'
+    RED = '\033[31m'
+    GREEN = '\033[32m'
+    YELLOW = '\033[33m'
+    BLUE = '\033[34m'
+    MAGENTA = '\033[35m'
+    CYAN = '\033[36m'
+    WHITE = '\033[37m'
+    UNDERLINE = '\033[4m'
+    RESET = '\033[0m'
+
 
 
 dataPasien = {
@@ -98,7 +108,9 @@ try:
             pass
 
 
-
+    def verifikasiUser(char):
+        persetujuan = input(f"\nApakah anda yakin ingin {char} data Pasien ini? [{style.GREEN}Y{style.RESET}/{style.RED}n{style.RESET}]: ").upper()
+        return persetujuan
 
     # Ini untuk menampilkan Tabel
     def tampilkanTable(char):
@@ -131,15 +143,16 @@ try:
                 # Akan menampilkan tabel Pasien jika ada.
                 tampilkanTable(i)
                 return i
+                break
             # Tetapi jika tidak ada akan muncul ini.
             else:
-                loading("Mencari", 2)
                 # Jika huruf paling depan dari inputUser sama pada saat looping dataPasien.
                 if char[0] == dataPasien[i]["Nama"][0]:
-                    print(f"Nama Pasien {char} tidak ditemukan, Tetapi ditemukan yang mendekati:") 
+                    loading("Mencari", 2)
+                    print(f"Nama Pasien {char} tidak ditemukan, Tetapi ditemukan yang mendekati:")
                     # Looping lagi untuk menampilkan nama-nama Pasien yang mendekati
 
-                    # NOTE : Kalau tidak diberi for-loop maka print yang nama pasien ... di atas akan tercetak sebanyak jumlah pasien di dalam dataPasien (Begitulah) 
+                    # NOTE : Kalau tidak diberi for-loop maka print yang nama pasien ... di atas akan tercetak sebanyak jumlah pasien di dalam dataPasien (Begitulah)
 
                     for j in dataPasien:
                         # Sekali lagi jika ada huruf paling depan dari inputCariData dengan huruf paling depan dari nama Pasien
@@ -148,9 +161,9 @@ try:
                             print(dataPasien[j]["Nama"])
                     # Lalu berhenti agar tidak terjadi tidak tercetak dua kali langkah-langkah yang di atas
                     break
-                        
-                    
-                
+
+
+
 
 
     ####################################################
@@ -177,20 +190,20 @@ try:
         # Akan memberikan value baru yaitu idBaru saja
         return idBaru
 
-            
+
     # Menampilkan tampilan menu
     def displayMenu():
         print(f"""
         *** Program Data Pasien ***
         Selamat datang {inputUserName}.
         Silahkan pilih salah satu pilihan berikut:
-        [1] {putih}Menampilkan data pasien.{normal}
-        [2] {putih}Menambahkan data pasien.{normal}
-        [3] {putih}Menghapus data pasien.{normal}
-        [4] {putih}Mencari data pasien.{normal}
-        [5] {putih}Perbarui data pasien.{normal}
-        [?] {putih}Tentang program ini.{normal}
-        [{merah}Q{normal}] {putih}Keluar dari program.{normal}
+        [1] {style.WHITE}Menampilkan data pasien.{style.RESET}
+        [2] {style.WHITE}Menambahkan data pasien.{style.RESET}
+        [3] {style.WHITE}Menghapus data pasien.{style.RESET}
+        [4] {style.WHITE}Mencari data pasien.{style.RESET}
+        [5] {style.WHITE}Perbarui data pasien.{style.RESET}
+        [?] {style.WHITE}Tentang program ini.{style.RESET}
+        [{style.RED}Q{style.RESET}] {style.WHITE}Keluar dari program.{style.RESET}
         """)
 
 
@@ -223,6 +236,14 @@ try:
     def tambahkanData():
         clear()
         nama = input("Tambahkan Nama: ")
+
+        while True:
+            if nama == "":
+                print("Nama tidak boleh kosong!!!")
+                nama = input("Tambahkan Nama: ")
+            else:
+                break
+
         # Looping untuk mengecek semua jumlah data di pasien
         for i in dataPasien:
             # Jika nama baru ada yang sama dengan nama pasien lain
@@ -235,7 +256,20 @@ try:
             penyakit = input("Tambahkan Penyakit: ")
             ruangan = input("Tambahkan tipe Ruangan: ")
             id = idPasien()
+
             lamaMenginap = input("Tambahkan lama Pasien menginap: ")
+
+            # Bagian ini untuk mengecek apakah lama menginap yang dimasukkan angka atau bukan
+            while True:
+                try:
+                    # Coba terlebih dahulu di konversi ke angka
+                    converted = int(lamaMenginap)
+                    # Jika yang dimasukkan adalah angka
+                    break
+                # Jika ternyata bukan angka maka akan muncul pesan ini dan akan diulang input nya.
+                except ValueError:
+                    print("Maaf tetapi Lama menginap pasien harus dalam bentuk angka.")
+                    lamaMenginap = input("Tambahkan lama Pasien menginap: ")
 
             # Membuat loop infinite untuk supaya input verifikasiUser dapat berjalan terus jika yang ditekan selain Y/n
             while True:
@@ -250,7 +284,7 @@ try:
                         "Penyakit":penyakit,
                         "Ruangan":ruangan,
                         "Lama menginap":lamaMenginap
-                    } 
+                    }
                     clear()
                     tableData= []
                     # Menampilkan data yang tadi ke dalam bentuk tabel
@@ -261,8 +295,8 @@ try:
                 elif userInput == "N":
                     break
                 else:
-                    print(f"Silahkan Pilih {hijau}Y{normal} atau {merah}n{normal}.")
-                
+                    print(f"Silahkan Pilih {style.GREEN}Y{style.RESET} atau {style.RED}n{style.RESET}.")
+
         input("\nTekan ENTER untuk kembali.")
 
 
@@ -285,20 +319,25 @@ try:
                 else:
                     # Jika nama yang dicari ada di dalam dataPasien
                     if idBaru:
-                        verifikasiUser("Menghapus")
-                        if verifikasiUser:
-                            loading("Menghapus", 3)
-                            del dataPasien[idBaru]
-                            print("Data telah dihapus")
-                        else:
-                            print("Batal menghapus data.")
+                        persetujuan = verifikasiUser("Menghapus")
+                        while True:
+                            if persetujuan == "Y":
+                                loading("Menghapus", 3)
+                                del dataPasien[idBaru]
+                                print("Data telah dihapus")
+                                break
+                            elif persetujuan == "N":
+                                break
+                            else:
+                                print(f"Hanya Masukkan {style.GREEN}Y{style.RESET} atau {style.RED}n{style.RESET}")
+                                persetujuan = verifikasiUser("Menghapus")
 
         # Jika input dari user kosong (Langsung Enter) maka akan muncul pesan ini
         except IndexError:
-            print("Anda tidak boleh mengosongkannya!!!")                
+            print("Anda tidak boleh mengosongkannya!!!")
 
         finally:
-            input("Tekan ENTER untuk kembali.")
+            input("\nTekan ENTER untuk kembali.")
 
 
     # Fungsi untuk mencari Pasien dalam dataPasien
@@ -312,20 +351,20 @@ try:
             # Jika ada sesuatu di dalam dataPasien.
             else:
                 inputCariData = input("Silahkan masukkan nama Pasien yang ingin dicari.\n(Jika pencarian tidak menampilkan apa-apa berarti tidak ada yang mendekati): ")
-                
+
                 # Yang disini mencari ID dan mencocokkan nya dengan data dari Pasien lain ada di Line 70-92.
                 idPasien = mengambilIdDariNama(inputCariData)
 
 
         # Jika user memasukkan input kosong.
         except IndexError:
-            print("Maaf tetapi anda tidak boleh mengosongkannya.")        
+            print("Maaf tetapi anda tidak boleh mengosongkannya.")
 
         finally:
-            input("\nTekan ENTER untuk kembali.") 
+            input("\nTekan ENTER untuk kembali.")
 
 
-    # Bagian cakupan dari perbarui data    
+    # Bagian cakupan dari perbarui data
 
 
     # Membuat template agar dapat dipakai berulang-ulang di pengkondisian perbaruiData
@@ -342,7 +381,7 @@ try:
         # Jika data yang baru saja dimasukkan berbeda dengan data yang sebelumnya
         else:
 
-            # Infinite loop agar verifikasi user dapat dilakukan berulang kali jika ada kesalahan dalam mengetik    
+            # Infinite loop agar verifikasi user dapat dilakukan berulang kali jika ada kesalahan dalam mengetik
             while True:
                 # Jika user memeberi input kosong.
                 if inputUbah == "":
@@ -363,7 +402,7 @@ try:
 
                         tampilkanTable(idPasien)
 
-                        print(f"\n{hijau}{char}{normal} Pasien telah diubah.")
+                        print(f"\n{style.GREEN}{char}{style.RESET} Pasien telah diubah.")
                         # Keluar dari loop
                         break
 
@@ -372,12 +411,74 @@ try:
                         print("Data batal diubah")
                         # Keluar dari loop
                         break
-                    
+
                     # Jika user memberikan input selain [Y/n]
                     else:
-                        print(f"Silahkan Pilih {hijau}Y{normal} atau {merah}n{normal}.")
+                        print(f"Silahkan Pilih {style.GREEN}Y{style.RESET} atau {style.RED}n{style.RESET}.")
                         # Akan kembali lagi ke proses while-loop karena infinite sampai user memberikan input [Y/n]
+        input("\nTekan ENTER untuk kembali.")
 
+    def templatePerbaruiLamaMenginap(idPasien, char, dataPasienSebelumnya):
+        clear()
+
+        inputUbah = input("Ubah lama Pasien menginap: ")
+
+        # Mengubah data
+        # Terpaksa dibuat berulang karena kalau dimasukkan ke dalam fungsi maka nilainya akan muncul yang salah pertama kali.
+        while True:
+            try:
+                # Coba terlebih dahulu di konversi ke angka
+                converted = int(inputUbah)
+                # Jika yang dimasukkan adalah angka
+                break
+            # Jika ternyata bukan angka maka akan muncul pesan ini dan akan diulang input nya.
+            except ValueError:
+                print("Maaf tetapi Lama menginap pasien harus dalam bentuk angka.")
+                inputUbah = input("Ubah lama Pasien menginap: ")
+
+        # Jika data yang baru saja dimasukkan sama dengan data yang sebelumnya
+        if inputUbah == dataPasienSebelumnya:
+            print(f"Maaf tetapi {char} Pasien tidak boleh sama dengan sebelumnya.")
+
+        # Jika data yang baru saja dimasukkan berbeda dengan data yang sebelumnya
+        else:
+
+            # Infinite loop agar verifikasi user dapat dilakukan berulang kali jika ada kesalahan dalam mengetik
+            while True:
+                # Jika user memeberi input kosong.
+                if inputUbah == "":
+                    print(f"{char} Pasien tidak boleh kosong!!!")
+                    inputUbah = input(f"Silahkan ubah {char} pasien sesuai yang anda inginkan: ")
+                # Jika user memberikan input selain input Kosong
+                else:
+                    # Meminta verifikasi/persetujuan dari User
+                    persetujuan = verifikasiUser("Mengubah Nama")
+
+                    # Jika User Setuju
+                    if persetujuan == "Y":
+                        # Animasi Loading
+                        loading("Mengubah", 3)
+
+                        # Mengubah data sebelumnya menjadi data baru
+                        dataPasien[idPasien][f"{char}"] = inputUbah
+
+                        tampilkanTable(idPasien)
+
+                        print(f"\n{style.GREEN}{char}{style.RESET} Pasien telah diubah.")
+                        # Keluar dari loop
+                        break
+
+                    # Jika user tidak setuju
+                    elif persetujuan == "N":
+                        print("Data batal diubah")
+                        # Keluar dari loop
+                        break
+
+                    # Jika user memberikan input selain [Y/n]
+                    else:
+                        print(f"Silahkan Pilih {style.GREEN}Y{style.RESET} atau {style.RED}n{style.RESET}.")
+                        # Akan kembali lagi ke proses while-loop karena infinite sampai user memberikan input [Y/n]
+        input("\nTekan ENTER untuk kembali.")
 
     # Fungsi untuk memperbarui data Pasien
     def perbaruiData():
@@ -387,48 +488,57 @@ try:
         if len(dataPasien) == 0:
             dataKosong(dataPasien)
 
-        # Jika ada sesuatu    
+        # Jika ada sesuatu
         else:
             inputPerbaruiData = input("Masukkan nama Pasien yang ingin anda ubah datanya: ")
-            
-            # Mengambil id pasien. 
+
+            # Mengambil id pasien.
             idPasien = mengambilIdDariNama(inputPerbaruiData)
 
             # Jika idPasien meng-return sesuatu maka akan masuk ke kondisi ini.
             if idPasien:
-                # Opsinya
-                print("""\n Opsi
-                [1] Nama
-                [2] Gender
-                [3] Penyakit
-                [4] Ruangan
-                [5] Lama menginap
-                """)
+                while True:
+                    tampilkanTable(idPasien)
+                    # Opsinya
+                    print(f"""\n Opsi
+                    [1] Nama
+                    [2] Gender
+                    [3] Penyakit
+                    [4] Ruangan
+                    [5] Lama menginap
+                    [{style.RED}Q{style.RESET}] Kembali ke menu utama
+                    """)
 
-                inputPilihanUser = input("Silahkan pilih opsi di atas yang ingin anda ubah dari Pasien ini: ")
+                    inputPilihanUser = input("Silahkan pilih opsi di atas yang ingin anda ubah dari Pasien ini: ").upper()
+                    # Kondisi untuk Nama
+                    if inputPilihanUser == "1":
+                        templatePerbarui(idPasien, "Nama", inputPerbaruiData)
 
-                # Kondisi untuk Nama
-                if inputPilihanUser == "1":
-                    templatePerbarui(idPasien, "Nama", inputPerbaruiData)
+                    # Kondisi untuk Gender
+                    elif inputPilihanUser == "2":
+                        templatePerbarui(idPasien, "Gender", dataPasien[idPasien]["Gender"])
 
-                # Kondisi untuk Gender
-                elif inputPilihanUser == "2":
-                    templatePerbarui(idPasien, "Gender", dataPasien[idPasien]["Gender"])
+                    # Kondisi untuk Penyakit
+                    elif inputPilihanUser == "3":
+                        templatePerbarui(idPasien, "Penyakit", dataPasien[idPasien]["Penyakit"])
 
-                # Kondisi untuk Penyakit
-                elif inputPilihanUser == "3":
-                    templatePerbarui(idPasien, "Penyakit", dataPasien[idPasien]["Penyakit"])
+                    # Kondisi untuk Ruangan
+                    elif inputPilihanUser == "4":
+                        templatePerbarui(idPasien, "Ruangan", dataPasien[idPasien]["Ruangan"])
 
-                # Kondisi untuk Ruangan
-                elif inputPilihanUser == "4":
-                    templatePerbarui(idPasien, "Ruangan", dataPasien[idPasien]["Ruangan"])
+                    # Kondisi untuk Lama menginap
+                    elif inputPilihanUser == "5":
+                        templatePerbaruiLamaMenginap(idPasien, "Lama menginap", dataPasien[idPasien]["Lama menginap"])
 
-                # Kondisi untuk Lama menginap
-                elif inputPilihanUser == "5":
-                    templatePerbarui(idPasien, "Lama menginap", dataPasien[idPasien]["Lama menginap"])
-                
-        
-        input("\nTekan ENTER untuk kembali.") 
+                    elif inputPilihanUser == "Q":
+                        break
+
+                    else:
+                        print("Hanya masukkan angka 1-5 atau huruf Q ")
+
+                        inputPilihanUser = input("Silahkan pilih opsi di atas yang ingin anda ubah dari Pasien ini: ")
+
+        input("\nTekan ENTER untuk kembali.")
 
 
     # Bagian ini cuma menampilkan informasi program ini.
@@ -440,7 +550,7 @@ try:
     Kelas: 10 Komputer 1
     \nTerima kasih telah memakai program ini!!!
         """)
-        input("\nTekan ENTER untuk kembali.") 
+        input("\nTekan ENTER untuk kembali.")
 
 
     # Keseluruhan proses dari progra,
@@ -473,12 +583,13 @@ try:
 
 
     inputUserName = input("Masukkan Nama Anda: ")
-    inputUserPasswd = input("Masukkan Juga Password Anda (Hint: Passwordnya a): ")
+    # Disini password apapun akan benar kecuali Kosong
+    inputUserPasswd = getpass(prompt="Masukkan Password Anda: ")
     # User login dan memverifikasi password
-    while inputUserPasswd != "a":
+    while inputUserPasswd == "":
         loading("Mengecek Password", 2)
-        print(f"Maaf tetapi password yang anda masukkan {merah}SALAH{normal}. Harap coba lagi...")
-        inputUserPasswd = input("Masukkan Juga Password Anda (Hint: Passwordnya a): ")
+        print(f"Maaf Password tidak boleh {style.RED}KOSONG{style.RESET}.")
+        inputUserPasswd = getpass(prompt="Masukkan Password Anda: ")
     else:
         loading("Mengecek Password", 3)
         print("Baiklah silahkan masuk.")
@@ -489,7 +600,7 @@ try:
 except ModuleNotFoundError:
     print(f"Maaf tetapi anda memiliki 1 module yang belum terpasang\nDibutuhkan module yang lengkap agar program dapat berjalan dengan optimal\nHarap menginstall \"pip\" terlebih dahulu.\n")
 
-    persetujuan = input(f"Apakah anda ingin menginstall module yang dibutuhkan sekarang? (Module yang dibutuhkan = Tabulate) [{hijau}Y{normal}/{merah}n{normal}]: ").upper()
+    persetujuan = input(f"Apakah anda ingin menginstall module yang dibutuhkan sekarang? (Module yang dibutuhkan = Tabulate) [{style.GREEN}Y{style.RESET}/{style.RED}n{style.RESET}]: ").upper()
 
     while True:
         if persetujuan == "Y":
@@ -505,6 +616,6 @@ except ModuleNotFoundError:
         elif persetujuan == "N":
             break
         else:
-            print(f"Hanya masukkan [{hijau}Y{normal}/{merah}n{normal}]")
+            print(f"Silahkan Pilih {style.GREEN}Y{style.RESET} atau {style.RED}n{style.RESET}.")
 
-            persetujuan = input(f"Apakah anda ingin menginstall module yang dibutuhkan sekarang? (Module yang dibutuhkan = Tabulate) [{hijau}Y{normal}/{merah}n{normal}]: ").upper()
+            persetujuan = input(f"Apakah anda ingin menginstall module yang dibutuhkan sekarang? (Module yang dibutuhkan = Tabulate) [{style.GREEN}Y{style.RESET}/{style.RED}n{style.RESET}]: ").upper()
