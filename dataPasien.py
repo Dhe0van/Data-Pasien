@@ -6,6 +6,9 @@
 import os
 import platform
 from getpass import getpass
+from json import load, dump
+
+
 
 
 # Fungsi ini untuk mengetahui OS apa yang digunakan oleh user? hanya mendukung windows dan linux
@@ -22,7 +25,7 @@ def platform_OS():
 
 # variabel penting untuk program
 
-os.system("")
+#os.system("")
 
 # Kumpulan Warna (Hasil copas internet)
 class style():
@@ -39,22 +42,6 @@ class style():
 
 
 
-dataPasien = {
-    "20201029-A001":{
-        "Nama":"Lol",
-        "Gender":"Cewe",
-        "Penyakit":"OK",
-        "Ruangan":"Reg",
-        "Lama menginap":"2"
-    },
-    "20201029-A002":{
-        "Nama":"lopi",
-        "Gender":"Cewe",
-        "Penyakit":"OK",
-        "Ruangan":"Reg",
-        "Lama menginap":"2"
-    }
-}
 
 ####################################################
 
@@ -287,6 +274,9 @@ try:
                     }
                     clear()
                     tableData= []
+
+                    writeData()
+
                     # Menampilkan data yang tadi ke dalam bentuk tabel
                     tableData.append([nama, gender, penyakit, ruangan, id, lamaMenginap + " Hari"])
                     print(tabulate(tableData, headers=["Nama", "Gender", "Penyakit", "Ruangan", "ID", "Lama menginap"], tablefmt="presto"))
@@ -312,6 +302,7 @@ try:
             # Jika terdapat data di dalam dataPasien
             else:
                 inputDelData = input("Silahkan masukkan nama pasien yang ingin dihapus\n(Jika tidak menampilkan apa-apa maka itu berarti pencarian tidak ada yang mendekati):  ")
+
                 idBaru = mengambilIdDariNama(inputDelData)
 
                 if inputDelData == "":
@@ -324,6 +315,9 @@ try:
                             if persetujuan == "Y":
                                 loading("Menghapus", 3)
                                 del dataPasien[idBaru]
+
+                                writeData()
+
                                 print("Data telah dihapus")
                                 break
                             elif persetujuan == "N":
@@ -402,6 +396,8 @@ try:
 
                         tampilkanTable(idPasien)
 
+                        writeData()
+
                         print(f"\n{style.GREEN}{char}{style.RESET} Pasien telah diubah.")
                         # Keluar dari loop
                         break
@@ -463,6 +459,8 @@ try:
                         dataPasien[idPasien][f"{char}"] = inputUbah
 
                         tampilkanTable(idPasien)
+
+                        writeData()
 
                         print(f"\n{style.GREEN}{char}{style.RESET} Pasien telah diubah.")
                         # Keluar dari loop
@@ -581,6 +579,20 @@ try:
                 print("Hanya masukkan kata kunci sesuai di tampilan menu.")
                 input("\nTekan ENTER untuk kembali.")
 
+    
+    filePath = "sekolah/project/projectAkhir/data.json"
+
+    def readData():
+        with open(filePath, "r") as docs:
+            read = load(docs)
+            return read
+
+    def writeData():
+        with open(filePath, "w") as docs:
+            write = dump(dataPasien, docs)
+            return write
+
+    dataPasien = readData()
 
     inputUserName = input("Masukkan Nama Anda: ")
     # Disini password apapun akan benar kecuali Kosong
