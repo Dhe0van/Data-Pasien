@@ -2,7 +2,9 @@
 from json import load, dump
 import platform
 
-filePath = "components\data.json"
+filePath = "components/data.json"
+
+
 
 
 def readData():

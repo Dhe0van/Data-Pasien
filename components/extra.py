@@ -14,8 +14,7 @@ os.system("")
 def moduleError():
     print(f"Maaf tetapi anda memiliki 1 module yang belum terpasang\nDibutuhkan module yang lengkap agar program dapat berjalan dengan optimal.\n")
 
-    persetujuan = input(
-        f"Apakah anda ingin menginstall module yang dibutuhkan sekarang? (Module yang dibutuhkan = Tabulate) [{var.hijau}Y{var.reset}/{var.merah}n{var.reset}]: ").upper()
+    persetujuan = input(f"Apakah anda ingin menginstall module yang dibutuhkan sekarang? (Module yang dibutuhkan = Tabulate) [{var.hijau}Y{var.reset}/{var.merah}n{var.reset}]: ").upper()
 
     while True:
         if persetujuan == "Y":
@@ -32,11 +31,9 @@ def moduleError():
         elif persetujuan == "N":
             break
         else:
-            print(
-                f"Silahkan Pilih {var.hijau}Y{var.reset} atau {var.merah}n{var.reset}.")
+            print(f"Silahkan Pilih {var.hijau}Y{var.reset} atau {var.merah}n{var.reset}.")
 
-            persetujuan = input(
-                f"Apakah anda ingin menginstall module yang dibutuhkan sekarang? (Module yang dibutuhkan = Tabulate) [{var.hijau}Y{var.reset}/{var.merah}n{var.reset}]: ").upper()
+            persetujuan = input(f"Apakah anda ingin menginstall module yang dibutuhkan sekarang? (Module yang dibutuhkan = Tabulate) [{var.hijau}Y{var.reset}/{var.merah}n{var.reset}]: ").upper()
 
 
 try:
@@ -81,8 +78,7 @@ try:
             pass
 
     def verifikasiUser(char):
-        persetujuan = input(
-            f"\nApakah anda yakin ingin {char} data Pasien ini? [{var.hijau}Y{var.reset}/{var.merah}n{var.reset}]: ").upper()
+        persetujuan = input(f"\nApakah anda yakin ingin {char} data Pasien ini? [{var.hijau}Y{var.reset}/{var.merah}n{var.reset}]: ").upper()
         return persetujuan
 
     # Ini untuk menampilkan Tabel
@@ -97,11 +93,9 @@ try:
         id = char
         lamaMenginap = var.dataPasien[char]["Lama menginap"]
 
-        tableData.append([nama, gender, penyakit, ruangan,
-                          id, lamaMenginap + " Hari"])
+        tableData.append([nama, gender, penyakit, ruangan, id, lamaMenginap + " Hari"])
 
-        print(tabulate(tableData, headers=[
-              "Nama", "Gender", "Penyakit", "Ruangan", "ID", "Lama menginap"], tablefmt="presto"))
+        print(tabulate(tableData, headers=["Nama", "Gender", "Penyakit", "Ruangan", "ID", "Lama menginap"], tablefmt="presto"))
 
     def templatePencarian(char, color1, color2):
         nama = var.dataPasien[char]["Nama"]
@@ -112,8 +106,7 @@ try:
         lamaMenginap = var.dataPasien[char]["Lama menginap"]
 
         # Memasukkan data-data di atas ke dalam variabel tableData
-        var.container.append([f"{color1}{nama}{color2}", f"{gender}",
-                              f"{penyakit}", f"{ruangan}", f"{id}", f"{lamaMenginap} " + "Hari"])
+        var.container.append([f"{color1}{nama}{color2}", f"{gender}", f"{penyakit}", f"{ruangan}", f"{id}", f"{lamaMenginap} " + "Hari"])
 
     # Ini akan mengecek id ketika menyebutkan nama.
 
@@ -137,8 +130,7 @@ try:
         loading("Mencari", 3)
 
         print(f"{var.peringatan}\n")
-        print(tabulate(var.container, headers=[
-            "Nama", "Gender", "Penyakit", "Ruangan", "ID", "Lama menginap"], tablefmt="presto"))
+        print(tabulate(var.container, headers=["Nama", "Gender", "Penyakit", "Ruangan", "ID", "Lama menginap"], tablefmt="presto"))
 
         var.container = []
         var.peringatan = ""

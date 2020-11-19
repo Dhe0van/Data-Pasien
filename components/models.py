@@ -44,8 +44,7 @@ def tampilkanData():
             tableData.append(
                 [nama, gender, penyakit, ruangan, id, lamaMenginap + " Hari"])
         # Menampilkan data pasien dalam bentuk tabel
-        print(tabulate(tableData, headers=[
-            "Nama", "Gender", "Penyakit", "Ruangan", "ID", "Lama menginap"], tablefmt="presto"))
+        print(tabulate(tableData, headers=["Nama", "Gender", "Penyakit", "Ruangan", "ID", "Lama menginap"], tablefmt="presto"))
     input("\nTekan ENTER untuk kembali.")
 
 # Menambahkan data ke ke dalam var.dataPasien
@@ -107,11 +106,9 @@ def tambahkanData():
                 var.writeData()
 
                 # Menampilkan data yang tadi ke dalam bentuk tabel
-                var.tableData.append(
-                    [nama, gender, penyakit, ruangan, id, lamaMenginap + " Hari"])
+                var.tableData.append([nama, gender, penyakit, ruangan, id, lamaMenginap + " Hari"])
 
-                print(tabulate(var.tableData, headers=[
-                    "Nama", "Gender", "Penyakit", "Ruangan", "ID", "Lama menginap"], tablefmt="presto"))
+                print(tabulate(var.tableData, headers=["Nama", "Gender", "Penyakit", "Ruangan", "ID", "Lama menginap"], tablefmt="presto"))
 
                 print("\nData berhasil disimpan.")
 
@@ -120,8 +117,7 @@ def tambahkanData():
             elif userInput == "N":
                 break
             else:
-                print(
-                    f"Silahkan Pilih {var.hijau}Y{var.reset} atau {var.merah}n{var.reset}.")
+                print(f"Silahkan Pilih {var.hijau}Y{var.reset} atau {var.merah}n{var.reset}.")
 
     input("\nTekan ENTER untuk kembali.")
 
@@ -138,8 +134,7 @@ def hapusData():
             extra.dataKosong(var.dataPasien)
         # Jika terdapat data di dalam var.dataPasien
         else:
-            inputDelData = input(
-                "Silahkan masukkan nama pasien yang ingin dihapus\n(Jika tidak menampilkan apa-apa maka itu berarti pencarian tidak ada yang mendekati):  ")
+            inputDelData = input("Silahkan masukkan nama pasien yang ingin dihapus:  ")
 
             extra.pencarian(inputDelData)
 
@@ -159,8 +154,7 @@ def hapusData():
                     elif persetujuan == "N":
                         break
                     else:
-                        print(
-                            f"Hanya Masukkan {var.hijau}Y{var.reset} atau {var.merah}n{var.reset}")
+                        print(f"Hanya Masukkan {var.hijau}Y{var.reset} atau {var.merah}n{var.reset}")
                         persetujuan = extra.verifikasiUser("Menghapus")
 
     # Jika input dari user kosong (Langsung Enter) maka akan muncul pesan ini
@@ -183,7 +177,7 @@ def cariData():
         # Jika ada sesuatu di dalam var.dataPasien.
         else:
             inputCariData = input(
-                "Silahkan masukkan nama Pasien yang ingin dicari.\n(Jika pencarian tidak menampilkan apa-apa berarti tidak ada yang mendekati): ")
+                "Silahkan masukkan nama Pasien yang ingin dicari: ")
 
             # Yang disini mencari ID dan mencocokkan nya dengan data dari Pasien lain ada di Line 70-92.
             extra.pencarian(inputCariData)
@@ -204,8 +198,7 @@ def templatePerbarui(idPasien, char, dataPasienSebelumnya, lamaMenginap=None, na
     extra.clear()
 
     # Mengubah data
-    inputUbah = input(
-        f"Silahkan ubah {char} pasien sesuai yang anda inginkan: ")
+    inputUbah = input(f"Silahkan ubah {char} pasien sesuai yang anda inginkan: ")
 
     if lamaMenginap == True:
         while True:
@@ -216,40 +209,23 @@ def templatePerbarui(idPasien, char, dataPasienSebelumnya, lamaMenginap=None, na
             # Jika ternyata bukan angka maka akan muncul pesan ini dan akan diulang input nya.
             except ValueError:
                 print("Maaf tetapi Lama menginap pasien harus dalam bentuk angka.")
-                inputUbah = input(
-                    f"Silahkan ubah {char} pasien sesuai yang anda inginkan: ")
+                inputUbah = input(f"Silahkan ubah {char} pasien sesuai yang anda inginkan: ")
     else:
         pass
 
     # Jika data yang baru saja dimasukkan sama dengan data yang sebelumnya
     if inputUbah == dataPasienSebelumnya:
-        print(
-            f"Maaf tetapi {char} Pasien tidak boleh sama dengan sebelumnya.")
+        print( f"Maaf tetapi {char} Pasien tidak boleh sama dengan sebelumnya.")
 
     # Jika data yang baru saja dimasukkan berbeda dengan data yang sebelumnya
     else:
 
         while True:
-            if nama == True:
-                for i in var.dataPasien:
-
-                    # Jika nama pasien sama dengan yang lain
-                    if inputUbah == var.dataPasien[i]["Nama"]:
-                        print(
-                            "Maaf tetapi nama tidak boleh sama dengan nama pasien yang lain.")
-                        inputUbah = input(
-                            f"Silahkan ubah {char} pasien sesuai yang anda inginkan: ")
-                    else:
-                        break
-            else:
-                pass
-
-        while True:
             if inputUbah == "":
                 print(f"{char} Pasien tidak boleh kosong!!!")
-                inputUbah = input(
-                    f"Silahkan ubah {char} pasien sesuai yang anda inginkan: ")
+                inputUbah = input(f"Silahkan ubah {char} pasien sesuai yang anda inginkan: ")
             else:
+
                 persetujuan = extra.verifikasiUser("Mengubah Nama")
 
                 if persetujuan == "Y":
@@ -271,8 +247,7 @@ def templatePerbarui(idPasien, char, dataPasienSebelumnya, lamaMenginap=None, na
                     break
 
                 else:
-                    print(
-                        f"Silahkan Pilih {var.hijau}Y{var.reset} atau {var.merah}n{var.reset}.")
+                    print(f"Silahkan Pilih {var.hijau}Y{var.reset} atau {var.merah}n{var.reset}.")
 
     input("\nTekan ENTER untuk kembali.")
 
@@ -286,8 +261,7 @@ def perbaruiData():
         extra.dataKosong(var.dataPasien)
 
     else:
-        inputPerbaruiData = input(
-            "Masukkan nama Pasien yang ingin anda ubah datanya: ")
+        inputPerbaruiData = input("Masukkan nama Pasien yang ingin anda ubah datanya: ")
 
         extra.pencarian(inputPerbaruiData)
 
@@ -306,32 +280,26 @@ def perbaruiData():
                 [{var.merah}Q{var.reset}] Kembali ke menu utama
                 """)
 
-                inputPilihanUser = input(
-                    "Silahkan pilih opsi di atas yang ingin anda ubah dari Pasien ini: ").upper()
+                inputPilihanUser = input("Silahkan pilih opsi di atas yang ingin anda ubah dari Pasien ini: ").upper()
                 # Kondisi untuk Nama
                 if inputPilihanUser == "1":
-                    templatePerbarui(idPasien, "Nama",
-                                     inputPerbaruiData, lamaMenginap=False, nama=True)
+                    templatePerbarui(idPasien, "Nama",inputPerbaruiData, lamaMenginap=False, nama=True)
 
                 # Kondisi untuk Gender
                 elif inputPilihanUser == "2":
-                    templatePerbarui(
-                        idPasien, "Gender", var.dataPasien[idPasien]["Gender"], lamaMenginap=False)
+                    templatePerbarui(idPasien, "Gender", var.dataPasien[idPasien]["Gender"], lamaMenginap=False)
 
                 # Kondisi untuk Penyakit
                 elif inputPilihanUser == "3":
-                    templatePerbarui(
-                        idPasien, "Penyakit", var.dataPasien[idPasien]["Penyakit"], lamaMenginap=False)
+                    templatePerbarui(idPasien, "Penyakit", var.dataPasien[idPasien]["Penyakit"], lamaMenginap=False)
 
                 # Kondisi untuk Ruangan
                 elif inputPilihanUser == "4":
-                    templatePerbarui(
-                        idPasien, "Ruangan", var.dataPasien[idPasien]["Ruangan"], lamaMenginap=False)
+                    templatePerbarui(idPasien, "Ruangan", var.dataPasien[idPasien]["Ruangan"], lamaMenginap=False)
 
                 # Kondisi untuk Lama menginap
                 elif inputPilihanUser == "5":
-                    templatePerbarui(
-                        idPasien, "Lama menginap", var.dataPasien[idPasien]["Lama menginap"], lamaMenginap=True)
+                    templatePerbarui(idPasien, "Lama menginap", var.dataPasien[idPasien]["Lama menginap"], lamaMenginap=True)
 
                 elif inputPilihanUser == "Q":
                     break
@@ -352,6 +320,7 @@ def tentang():
 Dibuat oleh:
 Nama : Dheovan Winata Alvian
 Kelas: 10 Komputer 1
+https://github.com/Dhe0van/Project-Akhir
 \nTerima kasih telah memakai program ini!!!
     """)
     input("\nTekan ENTER untuk kembali.")
