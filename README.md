@@ -34,7 +34,7 @@ Seperti namanya, Ini adalah program untuk mengurus data-data pasien yang ada di 
 <b>NB</b>: Pencarian hampir sama dengan Menampilkan, tetapi dengan sedikit fitur tambahan.
 
 ## ⚙️ Module ##
-Program ini ditulis dalam bahasa <strong>Python</strong> dan diperlukan module tambahan (eksternal)
+Program ini ditulis dalam bahasa <strong>Python</strong> dan diperlukan <i>module</i> tambahan (eksternal)
 <br/>
 <i>Module</i> eksternal yang diperlukan:
 - Tabulate `pip install tabulate`
