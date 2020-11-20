@@ -15,5 +15,6 @@ Seperti namanya, Ini adalah program untuk mengurus data-data pasien yang ada di 
 
 ## ⚙️ Extra ##
 Program ini ditulis dalam bahasa <strong>Python</strong> dan diperlukan module tambahan (eksternal)
+<br/>
 <i>Module</i> eksternal yang diperlukan:
 - Tabulate `pip install tabulate`
