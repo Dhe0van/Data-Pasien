@@ -31,6 +31,8 @@ Seperti namanya, Ini adalah program untuk mengurus data-data pasien yang ada di 
 ![Mengubah](https://github.com/Dhe0van/Data-Pasien/blob/main/Screenshot/3.png "Mengubah")
 <p align="center">Mengubah data</p>
 
+<b>NB</b>: Pencarian hampir sama dengan Menampilkan, tetapi dengan sedikit fitur tambahan.
+
 ## ⚙️ Extra ##
 Program ini ditulis dalam bahasa <strong>Python</strong> dan diperlukan module tambahan (eksternal)
 <br/>
