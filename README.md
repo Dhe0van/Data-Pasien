@@ -14,7 +14,7 @@ Seperti namanya, Ini adalah program untuk mengurus data-data pasien yang ada di 
 ## 📷 Screenshot ##
 
 ![Login Screen](https://github.com/Dhe0van/Data-Pasien/blob/main/Screenshot/6.png "Login Screen")
-<p style="color:#666699";>Tampilan <i>Login</i></p>
+<p style="#666699">Tampilan <i>Login</i></p>
 
 ## ⚙️ Extra ##
 Program ini ditulis dalam bahasa <strong>Python</strong> dan diperlukan module tambahan (eksternal)
