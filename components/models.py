@@ -194,7 +194,7 @@ def cariData():
 # Membuat template agar dapat dipakai berulang-ulang di pengkondisian perbaruiData
 
 
-def templatePerbarui(idPasien, char, dataPasienSebelumnya, lamaMenginap=None, nama=None):
+def templatePerbarui(idPasien, char, dataPasienSebelumnya, lamaMenginap=None):
     extra.clear()
 
     # Mengubah data
@@ -283,19 +283,19 @@ def perbaruiData():
                 inputPilihanUser = input("Silahkan pilih opsi di atas yang ingin anda ubah dari Pasien ini: ").upper()
                 # Kondisi untuk Nama
                 if inputPilihanUser == "1":
-                    templatePerbarui(idPasien, "Nama",inputPerbaruiData, lamaMenginap=False, nama=True)
+                    templatePerbarui(idPasien, "Nama",inputPerbaruiData)
 
                 # Kondisi untuk Gender
                 elif inputPilihanUser == "2":
-                    templatePerbarui(idPasien, "Gender", var.dataPasien[idPasien]["Gender"], lamaMenginap=False)
+                    templatePerbarui(idPasien, "Gender", var.dataPasien[idPasien]["Gender"])
 
                 # Kondisi untuk Penyakit
                 elif inputPilihanUser == "3":
-                    templatePerbarui(idPasien, "Penyakit", var.dataPasien[idPasien]["Penyakit"], lamaMenginap=False)
+                    templatePerbarui(idPasien, "Penyakit", var.dataPasien[idPasien]["Penyakit"])
 
                 # Kondisi untuk Ruangan
                 elif inputPilihanUser == "4":
-                    templatePerbarui(idPasien, "Ruangan", var.dataPasien[idPasien]["Ruangan"], lamaMenginap=False)
+                    templatePerbarui(idPasien, "Ruangan", var.dataPasien[idPasien]["Ruangan"])
 
                 # Kondisi untuk Lama menginap
                 elif inputPilihanUser == "5":
@@ -320,6 +320,7 @@ def tentang():
 Dibuat oleh:
 Nama : Dheovan Winata Alvian
 Kelas: 10 Komputer 1
+
 https://github.com/Dhe0van/Project-Akhir
 \nTerima kasih telah memakai program ini!!!
     """)
