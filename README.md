@@ -18,6 +18,7 @@ Seperti namanya, Ini adalah program untuk mengurus data-data pasien yang ada di 
 <p style='color:red'>This is some red text.</p>
 <font color="red">This is some text!</font>
 These are <b style='color:red'>red words</b>
+<h3 style="color:#ff0000">Danger</h3>
 
 ## ⚙️ Extra ##
 Program ini ditulis dalam bahasa <strong>Python</strong> dan diperlukan module tambahan (eksternal)
