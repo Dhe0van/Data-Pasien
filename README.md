@@ -1,1 +1,1 @@
-!ss1(https://github.com/Dhe0van/Project-Akhir/blob/main/1.png?raw=true)
+!ss1(https://github.com/Dhe0van/Project-Akhir/main/screenshot/1.png?raw=true)
