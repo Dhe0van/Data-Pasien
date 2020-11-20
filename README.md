@@ -1,7 +1,7 @@
 # 🏥 Program Data Pasien #
 <blockquote> Repository untuk program Data Pasien </blockquote>
 
-## 🤔 Apa ini? ##
+## ❓ Apa ini? ##
 Seperti namanya, Ini adalah program untuk mengurus data-data pasien yang ada di rumah sakit.
 
 ## ⭐ Fitur ##
@@ -33,7 +33,7 @@ Seperti namanya, Ini adalah program untuk mengurus data-data pasien yang ada di 
 
 <b>NB</b>: Pencarian hampir sama dengan Menampilkan, tetapi dengan sedikit fitur tambahan.
 
-## ⚙️ Extra ##
+## ⚙️ Module ##
 Program ini ditulis dalam bahasa <strong>Python</strong> dan diperlukan module tambahan (eksternal)
 <br/>
 <i>Module</i> eksternal yang diperlukan:
