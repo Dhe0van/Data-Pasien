@@ -13,7 +13,7 @@ Seperti namanya, Ini adalah program untuk mengurus data-data pasien yang ada di 
 
 ## 📷 Screenshot ##
 
-[Login Screen](https://github.com/Dhe0van/Data-Pasien/tree/main/Screenshot/6.png "Login Screen"?raw=true)
+[Login Screen](https://github.com/Dhe0van/Data-Pasien/tree/main/Screenshot/6.png?raw=true)
 
 ## ⚙️ Extra ##
 Program ini ditulis dalam bahasa <strong>Python</strong> dan diperlukan module tambahan (eksternal)
