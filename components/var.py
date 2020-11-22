@@ -5,8 +5,6 @@ import platform
 filePath = "components/data.json"
 
 
-
-
 def readData():
     with open(filePath, "r") as docs:
         read = load(docs)
